@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">EqMountController</string>
+    <string name="servo_position">Servo position</string>
+    <string name="backward">Backward</string>
+    <string name="between_steps_delay">Between steps delay</string>
+    <string name="forward">Forward</string>
+    <string name="connect">connect</string>
+    <string name="disconnect">disconnect</string>
+    <string name="togglebutton">ToggleButton</string>
+    <string name="stop">Stop</string>
+</resources>

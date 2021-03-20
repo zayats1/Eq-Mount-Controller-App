@@ -3,32 +3,22 @@ package com.example.eqmountcontroller;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
-import android.mtp.MtpDevice;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ederdoski.simpleble.interfaces.BleCallback;
-import com.ederdoski.simpleble.models.BluetoothLE;
 import com.ederdoski.simpleble.utils.BluetoothLEHelper;
 
-import java.io.ByteArrayInputStream;
-import java.text.BreakIterator;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 //FIXME NullPointerException with BluetoothGatt (need to debug with real phone)
@@ -47,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar BetweenStepDelaySetter;
 
     private final String Servo = "D";
-    private final int ServoMinRotationAngle = 0;
-    private final int ServoMaxRotationAngle = 270;
+    private final int ServoMinRotationAngle = 10;
+    private final int ServoMaxRotationAngle = 240;
 
     private final int MaxBetweenStepDelay = 999; // F or B 999
     private final int MinBetweenStepDelay = 10;
@@ -59,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private String stepper_motor_rotation_dir = "S";  // Motor doesn't rotate  by default   dir can be (- > "F", "B"< - , "S")
     private int stepper_motor_delay = MinBetweenStepDelay;
 
+    private final int DataSendingTimes = 240;
 
     private BleCallback myBleCallbacks() {
 
@@ -117,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         Button stepperForwardMoving = (Button) findViewById(R.id.forward);
         Button stepperBackwardMoving = (Button) findViewById(R.id.backward);
         Button stepperStopMoving = (Button) findViewById(R.id.stop);
+        Button stepperHoldMoving = (Button) findViewById(R.id.hold);
 
         ConnectionState = (ToggleButton) findViewById(R.id.toggleConnectionButton);
 
@@ -178,7 +170,13 @@ public class MainActivity extends AppCompatActivity {
                 stepper_motor_control();
             }
         });
-
+        stepperHoldMoving.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stepper_motor_rotation_dir = "H";
+                stepper_motor_control();
+            }
+        });
     }
 
     private final SeekBar.OnSeekBarChangeListener ServoPosChangeListener = new SeekBar.OnSeekBarChangeListener() {
@@ -235,7 +233,9 @@ public class MainActivity extends AppCompatActivity {
                 } else if (value < 10) {
                     done = "00" + done;
                 }
-                ble.write(myDeviceServiceUUID, myDeviceServiceCharacteristicUUID, ctrl + done + "\r\n");
+                for (int num = 1; num <= DataSendingTimes; num++) {
+                    ble.write(myDeviceServiceUUID, myDeviceServiceCharacteristicUUID, ctrl + done);
+                }
             }
         } catch (NullPointerException e) {
             e.printStackTrace();

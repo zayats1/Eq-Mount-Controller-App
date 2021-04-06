@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar BetweenStepDelaySetter;
 
     private final String Servo = "D";
-    private final int ServoMinRotationAngle = 10;
-    private final int ServoMaxRotationAngle = 240;
+    private final int ServoMinRotationAngle = 20;
+    private final int ServoMaxRotationAngle = 180;
 
     private final int MaxBetweenStepDelay = 999; // F or B 999
     private final int MinBetweenStepDelay = 10;
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         String done = String.valueOf(value);
         try {
             if (ble.isConnected()) {
-                if (value < 100 && value > 10) {
+                if (value < 100 && value >= 10) {
                     done = "0" + done;
                 } else if (value < 10) {
                     done = "00" + done;

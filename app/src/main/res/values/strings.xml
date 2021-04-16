@@ -9,4 +9,8 @@
     <string name="togglebutton">ToggleButton</string>
     <string name="stop">Stop</string>
     <string name="hold">Hold</string>
+    <string name="left_faster"><![CDATA[<<]]></string>
+    <string name="right_faster"><![CDATA[>>]]></string>
+    <string name="right_slower"><![CDATA[>]]></string>
+    <string name="left_slower"><![CDATA[<]]></string>
 </resources>

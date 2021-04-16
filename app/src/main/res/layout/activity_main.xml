@@ -8,6 +8,50 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/servo_up_slower"
+        android:layout_width="66dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/right_slower"
+        app:layout_constraintEnd_toStartOf="@+id/servo_up_faster"
+        app:layout_constraintTop_toBottomOf="@+id/servo_position_display" />
+
+    <Button
+        android:id="@+id/servo_down_slower"
+        android:layout_width="66dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="20dp"
+        android:text="@string/left_slower"
+        app:layout_constraintBottom_toBottomOf="@+id/servo_up_slower"
+        app:layout_constraintEnd_toStartOf="@+id/servo_up_slower"
+        app:layout_constraintTop_toTopOf="@+id/servo_up_slower"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/servo_down_faster"
+        android:layout_width="66dp"
+        android:layout_height="68dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/left_faster"
+        app:layout_constraintBottom_toBottomOf="@+id/servo_up_slower"
+        app:layout_constraintEnd_toStartOf="@+id/servo_down_slower"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/servo_position_display"
+        app:layout_constraintTop_toTopOf="@+id/servo_down_slower"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/servo_up_faster"
+        android:layout_width="66dp"
+        android:layout_height="68dp"
+        android:text="@string/right_faster"
+        app:layout_constraintBottom_toBottomOf="@+id/servo_up_slower"
+        app:layout_constraintEnd_toEndOf="@+id/servo_position_display"
+        app:layout_constraintTop_toTopOf="@+id/servo_up_slower"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/stop"
         android:layout_width="122dp"
         android:layout_height="70dp"
@@ -88,18 +132,6 @@
         app:layout_constraintTop_toBottomOf="@+id/between_steps_delay_setter"
         tools:visibility="visible" />
 
-    <SeekBar
-        android:id="@+id/servo_pos_setter"
-        android:layout_width="330dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="20dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/servo_position_display"
-        tools:visibility="visible" />
-
     <EditText
         android:id="@+id/servo_position_display"
         android:layout_width="330dp"
@@ -113,22 +145,24 @@
         app:layout_constraintHorizontal_bias="0.566"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/between_steps_delay_display"
         android:layout_width="330dp"
         android:layout_height="62dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/between_steps_delay"
         android:inputType="number"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/servo_pos_setter"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/servo_up_slower"
+        tools:visibility="visible"
+        android:importantForAutofill="no" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
